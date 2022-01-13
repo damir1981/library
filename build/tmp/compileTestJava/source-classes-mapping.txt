@@ -1,0 +1,2 @@
+com/galvanize/tmo/paspringstarter/PaSpringStarterApplicationTests.java
+ com.galvanize.tmo.paspringstarter.PaSpringStarterApplicationTests
