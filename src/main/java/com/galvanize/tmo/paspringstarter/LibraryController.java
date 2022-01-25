@@ -2,6 +2,7 @@ package com.galvanize.tmo.paspringstarter;
 
 
 import com.galvanize.tmo.paspringstarter.dao.BookRepository;
+import com.galvanize.tmo.paspringstarter.model.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.galvanize.tmo.paspringstarter.model.Book;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @RestController
@@ -29,15 +29,17 @@ public class LibraryController {
 
         library.add(book);
         repository.save(book);
-
+        
         return library.get(library.size()-1);
     }
 
     @GetMapping("/api/books")
     @ResponseStatus(HttpStatus.OK )
-    public List<Book> getAll(){
+    public BookResponse getAll(){
+        Collections.sort(library, Comparator.comparing(Book::getTitle));
+        BookResponse books = new BookResponse(library);
 
-            return  library;
+        return  books;
         }
 
     @DeleteMapping("api/books")
